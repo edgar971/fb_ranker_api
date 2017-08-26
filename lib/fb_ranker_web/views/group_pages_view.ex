@@ -8,4 +8,8 @@ defmodule FbRankerWeb.GroupPagesView do
     %{data: render_many(pages, PageView, "page.json")}
   end
 
+  def render("created.json", _) do
+    %{message: "Page was attached"}
+  end
+
 end

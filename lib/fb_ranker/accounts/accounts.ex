@@ -38,6 +38,22 @@ defmodule FbRanker.Accounts do
   def get_group!(id), do: Repo.get!(Group, id)
 
   @doc """
+  Gets a single group with pages
+
+  Raises `Ecto.NoResultsError` if the Group does not exist.
+
+  ## Examples
+
+      iex> get_group!(123)
+      %Group{}
+
+      iex> get_group!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_group_with_pages!(id), do: Repo.get!(Group, id) |> Repo.preload(:pages)
+
+  @doc """
   Gets a single group.
 
 
