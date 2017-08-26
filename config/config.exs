@@ -14,6 +14,9 @@ config :fb_ranker,
 # https://hexdocs.pm/phoenix/Mix.Tasks.Phx.Gen.Html.html#content
 config :fb_ranker, :generators, context_app: :fb_ranker
 
+# Facebook Config
+config :fb_ranker, facebook_access_token: System.get_env("F_ACCESS_TOKEN")
+
 
 # Configures the endpoint
 config :fb_ranker, FbRankerWeb.Endpoint,
@@ -31,3 +34,4 @@ config :logger, :console,
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"
+

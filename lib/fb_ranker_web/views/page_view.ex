@@ -17,4 +17,8 @@ defmodule FbRankerWeb.PageView do
       page_id: page.page_id,
       fan_count: page.fan_count}
   end
+
+  def render("search.json", %{results: results}) do
+    %{data: results}
+  end
 end

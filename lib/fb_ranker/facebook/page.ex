@@ -9,6 +9,7 @@ defmodule FbRanker.Facebook.Page do
     field :fan_count, :integer
     field :name, :string
     field :page_id, :string
+    field :category, :string
 
     timestamps()
   end
@@ -16,7 +17,7 @@ defmodule FbRanker.Facebook.Page do
   @doc false
   def changeset(%Page{} = page, attrs) do
     page
-    |> cast(attrs, [:name, :about, :page_id, :fan_count])
+    |> cast(attrs, [:name, :about, :category, :page_id, :fan_count])
     |> validate_required([:name, :about, :page_id, :fan_count])
   end
 end

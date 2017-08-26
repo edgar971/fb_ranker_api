@@ -20,6 +20,26 @@ defmodule FbRankerWeb.PageController do
     end
   end
 
+  def create(conn, %{"page_id" => page_id}) do
+
+    page = FbRanker.FacebookAPI.page(page_id)
+
+    fields = %{
+      about: Map.get(page, "about"),
+      page_id: Map.get(page, "id"),
+      name: Map.get(page, "name"),
+      fan_count: Map.get(page, "fan_count"),
+      category: Map.get(page, "category")
+    }
+
+    with {:ok, %Page{} = page} <- Facebook.create_page(fields) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", page_path(conn, :show, page))
+      |> render("show.json", page: page)
+    end
+  end
+
   def show(conn, %{"id" => id}) do
     page = Facebook.get_page!(id)
     render(conn, "show.json", page: page)
@@ -38,5 +58,10 @@ defmodule FbRankerWeb.PageController do
     with {:ok, %Page{}} <- Facebook.delete_page(page) do
       send_resp(conn, :no_content, "")
     end
+  end
+
+  def search(conn, %{"query" => query}) do
+    results = FbRanker.FacebookAPI.search(query)
+    render conn, "search.json", results: results
   end
 end
