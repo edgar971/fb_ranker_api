@@ -10,5 +10,7 @@ defmodule FbRankerWeb.Router do
 
     resources "/pages", PageController
     resources "/groups", GroupController
+    resources "/groups/:id/pages", GroupPagesController, only: [:index, :create]
+
   end
 end

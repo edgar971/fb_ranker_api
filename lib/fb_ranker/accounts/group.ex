@@ -7,6 +7,7 @@ defmodule FbRanker.Accounts.Group do
   schema "groups" do
     field :description, :string
     field :name, :string
+    many_to_many :pages, FbRanker.Facebook.Page, join_through: "group_pages"
 
     timestamps()
   end

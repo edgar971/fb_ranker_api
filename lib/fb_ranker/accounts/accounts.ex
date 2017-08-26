@@ -38,6 +38,21 @@ defmodule FbRanker.Accounts do
   def get_group!(id), do: Repo.get!(Group, id)
 
   @doc """
+  Gets a single group.
+
+
+  ## Examples
+
+      iex> get_group!(123)
+      %Group{}
+
+      iex> get_group!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_group(id), do: Repo.get(Group, id)
+
+  @doc """
   Creates a group.
 
   ## Examples

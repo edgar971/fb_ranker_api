@@ -38,6 +38,22 @@ defmodule FbRanker.Facebook do
   def get_page!(id), do: Repo.get!(Page, id)
 
   @doc """
+  Gets a single page.
+
+  Raises `Ecto.NoResultsError` if the Page does not exist.
+
+  ## Examples
+
+      iex> get_page!(123)
+      %Page{}
+
+      iex> get_page!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_page_by_fb_id(id), do: Repo.one(from Page, where: [page_id: ^id])
+
+  @doc """
   Creates a page.
 
   ## Examples
