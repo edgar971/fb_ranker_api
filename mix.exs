@@ -39,7 +39,8 @@ defmodule FbRanker.Mixfile do
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
-      {:facebook, "~> 0.13.2"}
+      {:facebook, "~> 0.13.2"},
+      {:cors_plug, "~> 1.4"}
     ]
   end
 

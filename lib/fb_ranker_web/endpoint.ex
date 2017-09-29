@@ -34,7 +34,9 @@ defmodule FbRankerWeb.Endpoint do
     key: "_fb_ranker_key",
     signing_salt: "Q/KY2yMH"
 
+  plug CORSPlug, origin: ["http://localhost:3000", "http://example2.com"]
   plug FbRankerWeb.Router
+
 
   @doc """
   Callback invoked for dynamically configuring the endpoint.

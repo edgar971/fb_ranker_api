@@ -10,6 +10,7 @@ defmodule FbRanker.FacebookAPI do
   FbRanker.FacebookAPI.search("apple")
   """
   def search(query) do
+    IO.inspect(Application.get_env(:fb_ranker, :facebook_access_token))
     options = Enum.concat([access_token: @access_token, type: "page", q: query], @default_options);
     case Facebook.Graph.get("search", options) do
       {:json, %{"data" => data}} -> data
