@@ -18,7 +18,12 @@ config :fb_ranker, FbRankerWeb.Endpoint,
   url: [host: "https://immense-hamlet-15325.herokuapp.com/", port: 443],
   force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json",
-  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE")
+  secret_key_base: Map.fetch!(System.get_env(), "SECRET_KEY_BASE"),
+
+# Facebook Config
+config :fb_ranker,
+       facebook_access_token: System.get_env("F_ACCESS_TOKEN")
+
 
 # Do not print debug messages in production
 config :logger, level: :info
