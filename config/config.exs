@@ -15,7 +15,7 @@ config :fb_ranker,
 config :fb_ranker, :generators, context_app: :fb_ranker
 
 # Facebook Config
-config :fb_ranker, facebook_access_token: Map.fetch!(System.get_env(), "F_ACCESS_TOKEN")
+config :fb_ranker, facebook_access_token: Map.fetch!(System.get_env(), "FB_ACCESS_TOKEN")
 
 
 # Configures the endpoint
