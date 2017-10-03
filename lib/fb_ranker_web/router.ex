@@ -10,6 +10,7 @@ defmodule FbRankerWeb.Router do
 
     get "/pages/search", PageController, :search
     resources "/pages", PageController
+    resources "/posts", PostController
     resources "/groups", GroupController
     resources "/groups/:id/pages", GroupPagesController, only: [:index, :create]
 

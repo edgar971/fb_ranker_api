@@ -40,7 +40,8 @@ defmodule FbRanker.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:facebook, "~> 0.13.2"},
-      {:cors_plug, "~> 1.4"}
+      {:cors_plug, "~> 1.4"},
+      {:timex, "~> 3.1"}
     ]
   end
 
