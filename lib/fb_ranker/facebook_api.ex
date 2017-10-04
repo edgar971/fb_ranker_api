@@ -35,13 +35,52 @@ defmodule FbRanker.FacebookAPI do
   Get the page posts for the current week
 
       FbRanker.FacebookAPI.page_feed_this_week("apple")
-
   """
   def page_feed_this_week(page_id) do
     from = Timex.beginning_of_week(Timex.now) |> Timex.to_unix
     to = Timex.end_of_week(Timex.now) |> Timex.to_unix
     url = "#{page_id}/posts"
-    Facebook.Graph.get(url,[access_token: @access_token, since: from, until: to, limit: 25])
+    Facebook.Graph.get(url,[access_token: @access_token, since: from, until: to, limit: 25, fields: [""]])
   end
+
+  @doc """
+  Get's the number of total post reactions
+
+      FbRanker.FacebookAPI.post_reaction_count
+  """
+  def post_reaction_count(post_id) do
+    url = "#{post_id}/reactions"
+    case Facebook.Graph.get(url, [access_token: @access_token, limit: 1, summary: true]) do
+      {:json, %{"summary" => %{"total_count" => count}}} -> count
+      _ -> 0
+    end
+  end
+
+  @doc """
+  Get's the number of total post comments
+
+      FbRanker.FacebookAPI.post_comments_count("105778816037_10156744699401038")
+  """
+  def post_comments_count(post_id) do
+    url = "#{post_id}/comments"
+    case Facebook.Graph.get(url, [access_token: @access_token, limit: 1, summary: true]) do
+      {:json, %{"summary" => %{"total_count" => count}}} -> count
+      _ -> 0
+    end
+  end
+
+  @doc """
+  Get's the number of total post shares
+
+      FbRanker.FacebookAPI.post_shares_count("105778816037_10156744699401038")
+  """
+  def post_shares_count(post_id) do
+    url = "#{post_id}"
+    case Facebook.Graph.get(url, [access_token: @access_token, limit: 1, fields: ["shares"]]) do
+      {:json, %{"shares" => %{"count" => count}}} -> count
+      _ -> 0
+    end
+  end
+
 
 end
