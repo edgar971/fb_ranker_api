@@ -10,7 +10,7 @@ defmodule FbRanker.Facebook.Post do
     field :likes, :integer
     field :message, :string
     field :shares, :integer
-    field :page_id, :string
+    belongs_to :page, FbRanker.Facebook.Page
     field :story, :string
 
     timestamps()

@@ -72,8 +72,9 @@ defmodule FbRanker.FacebookTest do
   describe "posts" do
     alias FbRanker.Facebook.Post
 
-    @valid_attrs %{created_time: "some created_time", fb_id: "some fb_id", likes: 42, message: "some message", shares: 42, story: "some story"}
-    @update_attrs %{created_time: "some updated created_time", fb_id: "some updated fb_id", likes: 43, message: "some updated message", shares: 43, story: "some updated story"}
+    @valid_attrs %{created_time: "some created_time", page_id: 12, fb_id: "some fb_id", likes: 42, message: "some message", shares: 42, story: "some story"}
+    @update_attrs %{created_time: "some updated created_time", page_id: 12, fb_id: "some updated fb_id", likes: 43, message: "some updated message", shares: 43, story: "some updated story"}
+
     @invalid_attrs %{created_time: nil, fb_id: nil, likes: nil, message: nil, shares: nil, story: nil}
 
     def post_fixture(attrs \\ %{}) do

@@ -9,7 +9,7 @@ defmodule FbRanker.Repo.Migrations.CreatePosts do
       add :fb_id, :string
       add :shares, :integer
       add :likes, :integer
-      add :page_id, :string
+      add :page_id, references(:pages)
       timestamps()
     end
 

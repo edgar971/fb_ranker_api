@@ -21,7 +21,7 @@ defmodule FbRankerWeb.GroupPagesController do
 
     group = Accounts.get_group_with_pages!(id)
 
-    with {:ok, %Group{} = group} <- attach_group_pages(group, page_id) do
+    with {:ok, %Group{}} <- attach_group_pages(group, page_id) do
       conn
       |> put_status(:created)
       |> render("created.json")

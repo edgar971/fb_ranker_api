@@ -10,6 +10,7 @@ defmodule FbRanker.Facebook.Page do
     field :name, :string
     field :page_id, :string
     field :category, :string
+    has_many :posts, FbRanker.Facebook.Post
 
     timestamps()
   end
