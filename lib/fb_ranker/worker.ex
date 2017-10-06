@@ -3,6 +3,8 @@ defmodule FbRanker.Worker do
   Scheduler module.
   """
 
+  @sleep 500
+
   use GenServer
 
   def start_link(_) do
@@ -14,13 +16,20 @@ defmodule FbRanker.Worker do
   end
 
   def handle_cast({:process_post, %{"id" => id} = post}, state) do
-    FbRanker.FacebookAPI.post_reaction_count(id)
+    Process.sleep(@sleep)
+    # Get shares, likes, comments
+    # Create post
+    # Save post
+    reactions = FbRanker.FacebookAPI.post_reaction_count(id)
+    shares = FbRanker.FacebookAPI.post_shares_count(id)
+    comments = FbRanker.FacebookAPI.post_comments_count(id)
+    %{reactions: reactions, shares: shares, comments: comments}
     |> IO.inspect
     {:noreply, state}
   end
 
   def handle_cast({:process_page, id}, state) do
-    IO.inspect("Working on page #{id}")
+    Process.sleep(@sleep)
     FbRanker.FacebookAPI.page_feed_this_week(id)
     |> Enum.each(&FbRanker.process_post/1)
     {:noreply, state}
