@@ -26,7 +26,7 @@ defmodule FbRanker.Application do
   defp poolboy_config do
     [{:name, {:local, :worker}},
       {:worker_module, FbRanker.Worker},
-      {:size, 50},
+      {:size, 100},
       {:max_overflow, 10}]
   end
 

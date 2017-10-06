@@ -9,21 +9,17 @@ defmodule FbRanker do
   @timeout 60000
 
 
-  def process_page do
+  def process_pages do
     FbRanker.Facebook.list_pages()
     |> Enum.each(&process_page/1)
   end
 
   def process_page(%{page_id: id} = page) do
-    Task.async(fn ->
-      :poolboy.transaction(:worker, fn(pid) -> GenServer.call(pid, {:process_page, id}) end, @timeout)
-    end)
+    :poolboy.transaction(:worker, fn(pid) -> GenServer.cast(pid, {:process_page, id}) end)
   end
 
-  def process_post(%{"id" => id}) do
-    Task.async(fn ->
-      :poolboy.transaction(:worker, fn(pid) -> GenServer.call(pid, {:process_post, id}) end, @timeout)
-    end)
+  def process_post(post) do
+    :poolboy.transaction(:worker, fn(pid) -> GenServer.cast(pid, {:process_post, post}) end)
   end
 
 end

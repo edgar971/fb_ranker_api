@@ -13,19 +13,17 @@ defmodule FbRanker.Worker do
     {:ok, nil}
   end
 
-  def handle_call({:process_post, id}, _from, state) do
-    IO.puts "process #{inspect self()} for processing post #{id}"
-
-    {:reply, id, state}
+  def handle_cast({:process_post, %{"id" => id} = post}, state) do
+    FbRanker.FacebookAPI.post_reaction_count(id)
+    |> IO.inspect
+    {:noreply, state}
   end
 
-  def handle_call({:process_page, id}, _from, state) do
-    IO.puts "process #{inspect self()} for processing page #{id}"
-
+  def handle_cast({:process_page, id}, state) do
+    IO.inspect("Working on page #{id}")
     FbRanker.FacebookAPI.page_feed_this_week(id)
     |> Enum.each(&FbRanker.process_post/1)
-
-    {:reply, id, state}
+    {:noreply, state}
   end
 
 
