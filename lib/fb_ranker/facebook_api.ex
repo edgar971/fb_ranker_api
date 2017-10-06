@@ -40,7 +40,10 @@ defmodule FbRanker.FacebookAPI do
     from = Timex.beginning_of_week(Timex.now) |> Timex.to_unix
     to = Timex.end_of_week(Timex.now) |> Timex.to_unix
     url = "#{page_id}/posts"
-    Facebook.Graph.get(url,[access_token: @access_token, since: from, until: to, limit: 25, fields: [""]])
+    case Facebook.Graph.get(url,[access_token: @access_token, since: from, until: to, limit: 25, fields: [""]]) do
+      {:json, %{"data" => data}} -> data
+      _ -> []
+    end
   end
 
   @doc """

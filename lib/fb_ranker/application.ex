@@ -8,6 +8,7 @@ defmodule FbRanker.Application do
 
     # Define workers and child supervisors to be supervised
     children = [
+      :poolboy.child_spec(:worker, poolboy_config()),
       # Start the Ecto repository
       supervisor(FbRanker.Repo, []),
       # Start the endpoint when the application starts
@@ -20,6 +21,13 @@ defmodule FbRanker.Application do
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: FbRanker.Supervisor]
     Supervisor.start_link(children, opts)
+  end
+
+  defp poolboy_config do
+    [{:name, {:local, :worker}},
+      {:worker_module, FbRanker.Worker},
+      {:size, 50},
+      {:max_overflow, 10}]
   end
 
   # Tell Phoenix to update the endpoint configuration
