@@ -53,6 +53,8 @@ defmodule FbRanker.Accounts do
   """
   def get_group_with_pages!(id), do: Repo.get!(Group, id) |> Repo.preload(:pages)
 
+  def get_group_with_pages(id), do: Repo.get(Group, id) |> Repo.preload(:pages)
+
   @doc """
   Gets a single group.
 

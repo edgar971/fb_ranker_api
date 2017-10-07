@@ -13,7 +13,6 @@ defmodule FbRankerWeb.PostView do
   def render("post.json", %{post: post}) do
     %{id: post.id,
       message: post.message,
-      story: post.story,
       created_time: post.created_time,
       fb_id: post.fb_id,
       shares: post.shares,

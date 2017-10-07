@@ -20,6 +20,7 @@ defmodule FbRankerWeb.Router do
     #Groups
     resources "/groups", GroupController
     resources "/groups/:id/pages", GroupPagesController, only: [:index, :create]
+    resources "/groups/:id/reports/posts", GroupPostController, only: [:index]
 
   end
 end
