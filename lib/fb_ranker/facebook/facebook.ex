@@ -180,15 +180,14 @@ defmodule FbRanker.Facebook do
     |> Repo.insert()
   end
 
-
   def update_or_create_post(attrs \\ %{}, page, id) do
-    case get_page_by_fb_id(id) do
+    case get_post_by_fb_id(id) do
       nil ->
         page
         |> Ecto.build_assoc(:posts)
-        |> Post.changeset(attrs)
       post -> post
     end
+    |> Post.changeset(attrs)
     |> Repo.insert_or_update
   end
 
