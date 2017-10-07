@@ -38,6 +38,9 @@ defmodule FbRanker.Facebook do
   """
   def get_page!(id), do: Repo.get!(Page, id)
 
+  def get_page(id), do: Repo.get(Page, id)
+
+
   @doc """
   Gets a single page.
 
@@ -135,6 +138,22 @@ defmodule FbRanker.Facebook do
   end
 
   @doc """
+  Returns the list of posts for a page.
+
+  ## Examples
+
+      iex> list_page_posts(1)
+      [%Post{}, ...]
+
+  """
+  def list_page_posts(id) do
+    id
+    |> get_page
+    |> Repo.preload(:posts)
+    |> Map.get(:posts)
+  end
+
+  @doc """
   Gets a single post.
 
   Raises `Ecto.NoResultsError` if the Post does not exist.
@@ -180,6 +199,7 @@ defmodule FbRanker.Facebook do
     |> Repo.insert()
   end
 
+
   def update_or_create_post(attrs \\ %{}, page, id) do
     case get_post_by_fb_id(id) do
       nil ->
@@ -188,6 +208,7 @@ defmodule FbRanker.Facebook do
       post -> post
     end
     |> Post.changeset(attrs)
+
     |> Repo.insert_or_update
   end
 

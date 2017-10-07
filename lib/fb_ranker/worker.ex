@@ -17,7 +17,6 @@ defmodule FbRanker.Worker do
 
   def handle_cast({:process_post, %{"id" => id, "created_time" => created, "message" => message}, page}, state) do
     Process.sleep(@sleep)
-
     #todo: Do it the Elixir way
     reactions = FbRanker.FacebookAPI.post_reaction_count(id)
     shares = FbRanker.FacebookAPI.post_shares_count(id)
@@ -30,7 +29,6 @@ defmodule FbRanker.Worker do
 
   def handle_cast({:process_page, %{page_id: id} = page}, state) do
     Process.sleep(@sleep)
-
     FbRanker.FacebookAPI.page_feed_this_week(id)
     |> Enum.each(&FbRanker.process_post(&1, page))
 

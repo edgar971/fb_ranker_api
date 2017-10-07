@@ -9,8 +9,15 @@ defmodule FbRankerWeb.Router do
     pipe_through :api
 
     get "/pages/search", PageController, :search
+
+    # Posts
+    resources "/posts", FbRankerWeb.PostController
+
+    # Pages
     resources "/pages", PageController
-    resources "/posts", PostController
+    resources "/pages/:page_id/posts", PagePostController, only: [:index]
+
+    #Groups
     resources "/groups", GroupController
     resources "/groups/:id/pages", GroupPagesController, only: [:index, :create]
 
