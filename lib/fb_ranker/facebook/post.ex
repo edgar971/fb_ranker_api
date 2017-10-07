@@ -8,6 +8,7 @@ defmodule FbRanker.Facebook.Post do
     field :created_time, :string
     field :fb_id, :string
     field :likes, :integer
+    field :comments, :integer
     field :message, :string
     field :shares, :integer
     belongs_to :page, FbRanker.Facebook.Page
@@ -19,7 +20,7 @@ defmodule FbRanker.Facebook.Post do
   @doc false
   def changeset(%Post{} = post, attrs) do
     post
-    |> cast(attrs, [:message, :story, :created_time, :fb_id, :shares, :likes, :page_id])
-    |> validate_required([:message, :story, :created_time, :fb_id, :shares, :likes, :page_id])
+    |> cast(attrs, [:message, :story, :created_time, :fb_id, :shares, :likes, :page_id, :comments])
+    |> validate_required([:created_time, :fb_id, :shares, :likes, :comments, :page_id])
   end
 end

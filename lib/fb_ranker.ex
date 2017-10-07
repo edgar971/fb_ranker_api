@@ -14,12 +14,12 @@ defmodule FbRanker do
     |> Enum.each(&process_page/1)
   end
 
-  def process_page(%{page_id: id} = page) do
-    :poolboy.transaction(:worker, fn(pid) -> GenServer.cast(pid, {:process_page, id}) end)
+  def process_page(page) do
+    :poolboy.transaction(:worker, fn(pid) -> GenServer.cast(pid, {:process_page, page}) end)
   end
 
-  def process_post(post) do
-    :poolboy.transaction(:worker, fn(pid) -> GenServer.cast(pid, {:process_post, post}) end)
+  def process_post(post, page_id) do
+    :poolboy.transaction(:worker, fn(pid) -> GenServer.cast(pid, {:process_post, post, page_id}) end)
   end
 
 end

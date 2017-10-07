@@ -8,6 +8,7 @@ defmodule FbRanker.Facebook do
 
   alias FbRanker.Facebook.Page
 
+
   @doc """
   Returns the list of pages.
 
@@ -150,6 +151,18 @@ defmodule FbRanker.Facebook do
   def get_post!(id), do: Repo.get!(Post, id)
 
   @doc """
+  Gets a single post by the FB ID
+
+  ## Examples
+    iex> FbRanker.Facebook.get_post_by_fb_id("12333")
+    nil
+    iex> FbRanker.Facebook.get_post_by_fb_id(123)
+    ** (Ecto.Query.CastError)
+
+  """
+  def get_post_by_fb_id(id), do: Repo.one(from Post, where: [fb_id: ^id])
+
+  @doc """
   Creates a post.
 
   ## Examples
@@ -165,6 +178,18 @@ defmodule FbRanker.Facebook do
     %Post{}
     |> Post.changeset(attrs)
     |> Repo.insert()
+  end
+
+
+  def update_or_create_post(attrs \\ %{}, page, id) do
+    case get_page_by_fb_id(id) do
+      nil ->
+        page
+        |> Ecto.build_assoc(:posts)
+        |> Post.changeset(attrs)
+      post -> post
+    end
+    |> Repo.insert_or_update
   end
 
   @doc """
