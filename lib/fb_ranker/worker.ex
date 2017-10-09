@@ -15,13 +15,13 @@ defmodule FbRanker.Worker do
     {:ok, nil}
   end
 
-  def handle_cast({:process_post, %{"id" => id, "created_time" => created, "message" => message}, page}, state) do
+  def handle_cast({:process_post, %{"id" => id, "created_time" => created, "message" => message, "type" => type}, page}, state) do
     Process.sleep(@sleep)
     #todo: Do it the Elixir way
     reactions = FbRanker.FacebookAPI.post_reaction_count(id)
     shares = FbRanker.FacebookAPI.post_shares_count(id)
     comments = FbRanker.FacebookAPI.post_comments_count(id)
-    %{fb_id: id, likes: reactions, shares: shares, comments: comments, message: message, created_time: created}
+    %{fb_id: id, likes: reactions, shares: shares, type: type, comments: comments, message: message, created_time: created}
     |> FbRanker.Facebook.update_or_create_post(page, id)
 
     {:noreply, state}

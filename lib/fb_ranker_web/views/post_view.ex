@@ -16,6 +16,7 @@ defmodule FbRankerWeb.PostView do
       created_time: post.created_time,
       fb_id: post.fb_id,
       shares: post.shares,
+      type: post.type,
       comments: post.comments,
       likes: post.likes
     }
